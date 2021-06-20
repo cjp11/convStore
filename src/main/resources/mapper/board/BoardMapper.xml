@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="board">
+<resultMap id="BoardMap" type="BoardDto" >
+<result property="b_no" column="B_NO" />
+	<result property="member_id" column="MEMBER_ID" />
+	<result property="b_title" column="B_TITLE" />
+	<result property="b_content" column="B_CONTENT" />
+	<result property="b_date" column="B_DATE" />
+	<result property="b_hits" column="B_HITS" />
+	<result property="total" column="TOTAL" />
+	<result property="member_grade" column="MEMBER_GRADE" />
+</resultMap>
+
+<select id="boardList" resultMap="BoardMap" parameterType="int">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT ROWNUM AS RN, A.B_NO, A.MEMBER_ID, A.B_TITLE, A.B_CONTENT, A.B_DATE, A.B_HITS, TOTAL, MEMBER_GRADE FROM (
+				SELECT ROWNUM, B_NO, MEMBER_ID, B_TITLE, B_CONTENT, B_DATE, B_HITS, (SELECT COUNT(*) FROM ANSWER WHERE B_NO = B.B_NO
+			)AS TOTAL, (
+				SELECT MEMBER_GRADE FROM MEMBER WHERE MEMBER_ID = B.MEMBER_ID
+			)AS MEMBER_GRADE FROM BOARD B ORDER BY DECODE(MEMBER_GRADE, 'ROLE_ADMIN', MEMBER_GRADE), B_NO DESC
+			)A WHERE ROWNUM <= #{pageNo} * 10
+		)
+		WHERE #{pageNo} * 10 - 9 <= RN
+	]]>
+</select>
+
+<select id="boardDetail" parameterType="int" resultType="BoardDto">
+	SELECT B_NO, MEMBER_ID, B_TITLE, B_CONTENT, B_DATE, B_HITS, (SELECT MEMBER_GRADE FROM MEMBER WHERE MEMBER_ID = B.MEMBER_ID)AS MEMBER_GRADE FROM BOARD B WHERE B_NO = #{b_no}
+</select>
+
+<insert id="boardInsert" parameterType="BoardDto">
+	INSERT INTO BOARD VALUES(BOARDSEQ.NEXTVAL, #{member_id}, #{b_title}, #{b_content}, SYSDATE, 0)
+</insert>
+
+<update id="boardUpdate" parameterType="BoardDto">
+	UPDATE BOARD SET B_TITLE = #{b_title}, B_CONTENT=#{b_content}, B_DATE = SYSDATE WHERE B_NO = #{b_no}
+</update>
+
+<delete id="boardDelete" parameterType="int">
+	DELETE FROM BOARD WHERE B_NO = #{b_no}
+</delete>
+
+<select id="boardSearch" parameterType="map" resultMap="BoardMap">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT ROWNUM AS RN, A.B_NO, A.MEMBER_ID, A.B_TITLE, A.B_CONTENT, A.B_DATE, A.B_HITS, MEMBER_GRADE FROM (
+				SELECT ROWNUM, B_NO, MEMBER_ID, B_TITLE, B_CONTENT, B_DATE, B_HITS, (
+					SELECT MEMBER_GRADE FROM MEMBER WHERE MEMBER_ID = B.MEMBER_ID
+				)AS MEMBER_GRADE FROM BOARD B WHERE UPPER(${option}) LIKE '%' || UPPER(#{input}) || '%' ORDER BY DECODE(MEMBER_GRADE, 'ROLE_ADMIN', MEMBER_GRADE), B_NO DESC
+			)A WHERE ROWNUM <= #{pageNo} * 10)
+		WHERE #{pageNo} * 10 - 9 <= RN
+	]]>
+</select>
+
+<update id="boardCount" parameterType="int">
+	UPDATE BOARD SET B_HITS = B_HITS + 1 WHERE B_NO = #{b_no}
+</update>
+
+<select id="boardtotal" resultType="int">
+	SELECT COUNT(*) FROM BOARD
+</select>
+
+<select id="boardSearchTotal" parameterType="map" resultType="int">
+	SELECT COUNT(*) FROM BOARD WHERE UPPER(${option}) LIKE '%' || UPPER(#{input}) || '%'
+</select>
+	
+<delete id="boardMulDel" parameterType="map">
+	DELETE FROM BOARD WHERE B_NO IN
+		<foreach collection="b_no" item="b_no" open="(" separator=","	close=")">
+				#{b_no}
+		</foreach>
+</delete>
+
+</mapper>

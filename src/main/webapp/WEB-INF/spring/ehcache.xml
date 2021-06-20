@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+ 
+ <diskStore path="java.io.tmpdir"/>
+ 
+	<cache name="SelectCache" 
+		maxElementsInMemory="600" 
+		eternal="false" 
+		overflowToDisk="false" 
+		timeToLiveSeconds="600" />
+ <!--
+
+name : 캐시의 이름이다. @Cacheable("캐시의 이름") 와 일치시켜줘야한다.
+
+maxElementsInMemory : 메모리에 보유할 최대 데이터갯수
+
+eternal : 한번 캐시하면 영원히 유지할 것인지의 여부
+
+timeToIdleSeconds : 데이터가 지정된 시간(초단위)동안 재호출되지 않으면 휘발됨
+
+timeToLiveSeconds : 한번 저장된 데이터의 최대 저장 유지 시간(초단위)
+
+overflowToDisk : 메모리저장공간이 부족할때 Disk 사용여부
+
+-->
+ 
+</ehcache>

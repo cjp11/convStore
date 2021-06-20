@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatting">
+
+<select id="selectChattingList" resultType="chattingdto">
+	<![CDATA[
+		select *
+		from(
+		select *
+		from chatting
+		order by chat_date desc)
+		where rownum<30
+		order by chat_no asc
+	]]>
+</select>
+
+<select id="connectCount" resultType="int">
+	select count(*) from connect_member
+</select>
+
+<insert id="insertChat">
+	insert into chatting values(chat_no_seq.nextval,#{member_id},#{chat_content},default)
+</insert>
+
+<insert id="chatUpload">
+	insert into chatUpload values(#{member_id},#{renamedFilename},sysdate)
+</insert>
+
+<select id="selectImg" resultType="map">
+		<![CDATA[
+		select a.member_id,a.renamed_filename
+		from(
+		select *
+		from chatUpload
+        where member_id=#{member_id}
+		order by uploadtime desc)a
+		where rownum<2
+		]]>
+</select>
+
+<insert id="insertPhoto">
+	insert into chatting values(chat_no_seq.nextval,#{MEMBER_ID},#{FILE_URL},sysdate)
+</insert>
+
+</mapper>

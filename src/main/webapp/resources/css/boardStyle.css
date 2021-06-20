@@ -1,0 +1,82 @@
+@CHARSET "UTF-8";
+/*common*/
+html,body{height:100%;}  /*footer고정을 하기 위해 설정*/
+a:hover{cursor:pointer;}
+ul{list-style-type:none;}
+.sty_h10{color:#c4c4c4; height:10px;}
+.sty_bgWt{background-color:#fff;}
+.sty_clrBoth{clear:both}
+.sty_btnR{float:right;}
+.sty_btnL{float:left;}
+.sty_ft14{font-size:14px;}
+.sty_ftBold{font-weight:bold;}
+textarea{resize:none;}
+/*margin,padding*/
+.sty_pdR0{padding-right:0}
+.sty_pdT20{padding-top:20px;}
+.sty_mgT60{margin-top:60px;}
+
+/*footer 고정을 위해 전체 컨텐츠를 감싸는 div*/
+/*position을 잡아야 footer에서 absolute 설정됨 , min-height는 브라우저 축소에 따른 최소 영역, padding-bottom은 footer와 컨텐츠의 겹침을 방지하기 위해 설정*/
+#sty_wrap{position:relative; min-height:100%; padding-bottom:60px;}
+
+
+/*buttons*/
+#container .sty_btnL{float:left;}
+#container .sty_btnFt{float:right; margin-left:5px;z-index:1;} 
+
+/*footer*/
+.footer{position: absolute; bottom: 0; width: 100%; height: 60px; background-color: #f5f5f5; margin-top:-60px; overflow:hidden;}
+
+.sty_text-muted {width:1200px; margin: 20px auto; font-size:12px; color:#4e4e4e;}
+
+
+/*boardList*/
+#container{position:relative; width:auto; font-size:15px; color:#333; margin-bottom:-90px;padding-top:30px; margin:0 auto 30px; max-width:1200px;}
+#container thead{background-color: #eee;}
+#container th{padding:10px 8px; text-align: center;}
+#container td{padding:8px; text-align: center;}
+#container .sty_txLeft{text-align: left; padding:10px 10px;}
+#container .sty_srch{height:40px;}
+#container .sty_srch li{float:left;padding-right:5px;}
+#container select{width:150px; margin-left:-40px;}
+#container .sty_commIco{position:absolute; top:26px; left:60px; width:10px; height:10px; text-indent:-9999px; background: 0 0; border-width: 0 0 1px 1px; border-style:solid; opacity: .4;}
+#container .sty_page{text-align:center; width:100%;}
+#container .sty_page .sty_wdt{margin-top:-20px;}
+
+/*boardDetail*/
+#container .sty_dtlTit{font-size:30px;}
+#container .sty_dtlTit input{width:800px;}
+#container .sty_dtlTit2{background-color: #f3f3f3;}
+#container .sty_dtlCon{line-height:16px; text-align: center;}
+#container .sty_dtlCon .sty_txtarea{resize:none; width:100%; height:300px; background-color: #fff;
+ -moz-appearance:none;  -webkit-appearance: none; -webkit-box-shadow: none; -moz-box-shadow: none;box-shadow:none;}
+
+/*comment*/
+#container .sty_commTit{font-weight:bold; padding:20px 0 10px;}
+#container .sty_commArea{position:relative; width:1200px; padding:20px 30px; background-color:#f3f3f3;}
+#container .sty_commArea textarea{resize:none; width:900px; height:80px; border-color:#f1f1f1;padding:5px; margin-left:55px;}
+#container .sty_commList{padding-top:20px;margin-left:-40px;}
+#container .sty_commList .sty_commL li{float:left; margin:0 7px 10px 0; font-size:13px;}
+#container .sty_commList .sty_commR{margin-top:-30px;}
+#container .sty_commList .sty_commR li{float:right; margin:0 7px 10px 0;} 
+#container .sty_commCon {margin-left:40px;}
+#container .sty_commText{width:100%; margin-bottom:10px; border-bottom:1px solid #ddd; padding:10px; color:#666; text-align:left;}
+#container .sty_commList .sty_commId{font-weight:bold; margin:0 7px 10px 0;}
+#container .sty_commList .sty_commDate{font-size:12px; margin-right:7px;}
+#container .sty_commList a{font-size:12px;}
+#container .sty_commList .sty_commText{color:#666; font-size:14px; padding:10px 20px 20px 0;}
+#container .sty_commBtn{position:absolute; top:20px; right:100px; width:100px; height:80px;}
+#container .sty_commUdpBtn{position:relative; bottom:20px; right:90px; width:100px; height:80px;}
+#container .sty_commTotal{margin-left:4px;color:red;}
+#container .sty_answerRe{position:relative; top:0; left:0;}
+
+/* 현재가추가한거 */
+#container .sty_commId{font-weight:bold; margin:0 7px 10px 0;} 
+#container .sty_pnoId{color:#ff8040;font-size:14px;font-weight:bold;}
+#container .sty_commCon .sty_txArea{padding-left:6px; color:#666; text-align:left; border:none; resize: none;}
+
+
+
+
+

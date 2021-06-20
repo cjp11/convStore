@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="com.example.demo.member.model.dto.MemberDto" alias="memberdto" />
+		<typeAlias type="com.example.demo.member.model.dto.MembershipDto" alias="membershipdto" />
+		<typeAlias type="com.example.demo.member.model.dto.MemberAddressDto" alias="memberaddressdto" />
+		<typeAlias type="com.example.demo.member.model.dto.AddressDto" alias="addressdto" />
+		<typeAlias type="com.example.demo.board.model.dto.BoardDto" alias="boarddto" />
+		
+		<typeAlias type="com.example.demo.answer.model.dto.AnswerDto" alias="answerdto" />
+		
+		<typeAlias type="com.example.demo.chatting.model.dto.ChattingDto" alias="chattingdto"/>
+		
+		<typeAlias type="com.example.demo.cart.model.dto.CartVO" alias="cartVO" />
+		
+		<typeAlias type="com.example.demo.member.model.dto.QuestionDto" alias="questiondto" />  
+		
+		
+		
+		
+		
+		
+		
+	</typeAliases>
+
+
+
+
+
+</configuration>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+<!-- / 호출시 inxex.jsp로 연결-->
+<welcome-file-list>
+	<welcome-file>index.jsp</welcome-file>
+</welcome-file-list>
+
+<context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/spring/*-context.xml</param-value>
+</context-param>
+  
+<listener>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+</listener>
+ 
+<servlet>
+	<servlet-name>appServlet</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<init-param>
+		<param-name>contextConfigLocation</param-name>
+      	<param-value>/WEB-INF/spring/appServlet/*-context.xml</param-value>
+    </init-param>
+	<load-on-startup>1</load-on-startup>
+	<async-supported>true</async-supported>
+</servlet>
+  
+<servlet-mapping>
+    <servlet-name>appServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+</servlet-mapping>
+
+<!-- post방식 인코딩 설정 UTF-8 필터 -->
+<filter>
+	<filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	<async-supported>true</async-supported>
+    <init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+	<filter-name>encodingFilter</filter-name>
+	<url-pattern>*.do</url-pattern>
+</filter-mapping>
+
+<!-- 공용에러페이지 등록 -->
+<error-page>
+	<exception-type>java.lang.Exception</exception-type>
+	<location>/WEB-INF/views/common/error.jsp</location>
+</error-page>
+
+<!-- 세션만료 시간 30분 -->
+<session-config>
+	<session-timeout>30</session-timeout>
+</session-config>
+  	
+  	
+<!-- 다른 브라우저에서 같은 계정 로그인 방지를 위한 리스너 -->
+<listener>
+	<listener-class>
+		org.springframework.security.web.session.HttpSessionEventPublisher
+	</listener-class>
+</listener>
+	
+<!-- 웹으로 들어오는 모든 요청에 대해 시큐리티 적용을 위한 필터 -->
+<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>
+			org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+		<async-supported>true</async-supported>
+</filter>
+  	<filter-mapping>
+  		<filter-name>springSecurityFilterChain</filter-name>
+  		<url-pattern>/*</url-pattern>
+  	</filter-mapping>
+
+<!-- 세션종료시 접속중인 사용자정보(DB) 삭제 위한 리스너 -->
+<listener>
+	<listener-class>com.example.demo.member.service.SessionDestoryListener</listener-class>
+</listener>
+  
+	
+
+</web-app>

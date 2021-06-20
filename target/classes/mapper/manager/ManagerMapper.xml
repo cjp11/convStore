@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="manager">
+      <select id="selectListMember" resultType="memberdto">
+          select * from member order by member_enrolldate
+      </select>
+   
+      <select id="selectManagerTotalMember" resultType="int">
+      select count(*) from member   
+      </select>
+      
+      <select id="selectOneMember" resultType="MemberDto">
+      SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
+      </select>
+      
+      <select id="selectListDeletedMember" resultType="MemberDto">
+          select * from del_member order by member_deletedate
+      </select>
+      
+      <select id="selectManagerTotalDeletedMember" resultType="int">
+      select count(*) from del_member  
+      </select>
+      
+      
+
+	<!--
+	
+	<select id="selectQuestionList" resultType="QuestionDto">
+      	select question_no, member_id, question_comment,
+		to_char(question_reg_date,'yyyy-mm-dd hh24:mi:ss') as question_reg_date,
+		question_title
+		from question
+		where admin_id is null
+		order by question_no desc
+      </select>
+
+	<select id="selectQuestionListCount" resultType="int">
+      	select count(*)
+		from question
+		where admin_id is null
+		order by question_no desc
+      </select>
+      <insert id="insertQuestion">
+      		insert into question
+			values(seq_question_no.nextval,#{member_id},#{question_comment},sysdate,#{question_title},#{admin_id})
+	
+			<selectKey keyProperty="question_no" order="AFTER" resultType="int">
+				select seq_question_no.currval from dual
+			</selectKey>
+      </insert>
+
+	-->
+      
+      
+      
+      
+
+
+</mapper>
